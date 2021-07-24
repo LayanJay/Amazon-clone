@@ -1,3 +1,8 @@
 {
-  "extends": ["next", "next/core-web-vitals"]
+  "extends": ["next", "next/core-web-vitals"],
+  "rules": {
+    "no-unused-vars": "warn",
+    "no-unused-expressions": "warn",
+    "no-eval": "warn"
+  }
 }
