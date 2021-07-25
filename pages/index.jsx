@@ -1,7 +1,15 @@
-export default function Home() {
+import CarouselComp from '../components/Carousel'
+import Layout from '../components/common/Layout'
+import Container from '../components/common/Container'
+
+const Home = () => {
   return (
-    <div>
-      hello world
-    </div>
+    <Layout>
+      <Container>
+        <CarouselComp />
+      </Container>
+    </Layout>
   )
 }
+
+export default Home
