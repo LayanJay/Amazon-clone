@@ -14,6 +14,7 @@ const CarouselComp = () => {
         emulateTouch={true}
         swipeable={true}
         infiniteLoop={true}
+        showThumbs={false}
       >
         {carouselData.map(({ image, text }, i) => (
           <div key={i}>
