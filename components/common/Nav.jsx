@@ -42,19 +42,21 @@ const Nav = () => {
             <IoIosSearch className='text-2xl' />
           </Button>
         </div>
-        <div className='md:col-span-1 col-span-2 flex items-center justify-between'>
-          <p className='text-white text-sm flex flex-col'>
+        <div className='md:col-span-1 col-span-2 flex items-center justify-end space-x-2'>
+          <div className='text-white text-sm flex flex-col'>
             <div className='text-xs'>Hello, Sign in</div>
             <div className='font-bold truncate'>Layan Jayasinghe</div>
-          </p>
-          <div className='flex items-center space-x-2'>
+          </div>
+          <div className='inline-flex flex-row items-center space-x-2'>
             <div className='relative'>
               <HiOutlineShoppingCart className='text-4xl sm:text-5xl text-white' />
               <p className='absolute top-0 right-0 font-semibold text-white bg-gray-600 py-0.5 px-1.5 text-xs rounded-full'>
                 0
               </p>
             </div>
-            <div className='text-sm font-semibold text-white'>Cart</div>
+            <div className='text-sm font-semibold text-white '>
+              <p>Cart</p>
+            </div>
           </div>
         </div>
       </div>
