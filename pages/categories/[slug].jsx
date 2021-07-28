@@ -1,18 +1,40 @@
 import Container from '../../components/common/Container'
 import Layout from '../../components/common/Layout'
 import Product from '../../components/Product'
+import SidePanel from '../../components/SidePanel'
 
 export const getStaticProps = async ({ params }) => {
   const { slug } = params
 
+  const queryRelatedProducts = (slug) => {
+    if (slug === 'electronics') {
+      return 'jewelery'
+    } else if (slug === 'jewelery') {
+      return 'electronics'
+    } else if (slug === "men's clothing") {
+      return "women's clothing"
+    } else if (slug === "women's clothing") {
+      return "men's clothing"
+    }
+  }
+
   const url = `https://fakestoreapi.com/products/category/${slug}`
+  const relatedUrl = `https://fakestoreapi.com/products/category/${queryRelatedProducts(
+    slug
+  )}`
 
   const products = await fetch(url).then((res) => res.json())
+  const relatedProducts = await fetch(relatedUrl).then((res) => res.json())
+  const categories = await fetch(
+    'https://fakestoreapi.com/products/categories'
+  ).then((res) => res.json())
 
   return {
     props: {
       products,
+      categories,
       slug,
+      relatedProducts,
     },
   }
 }
@@ -32,7 +54,12 @@ export const getStaticPaths = async () => {
   }
 }
 
-const SingleCategoryPage = ({ products, slug }) => {
+const SingleCategoryPage = ({
+  products,
+  categories,
+  slug,
+  relatedProducts,
+}) => {
   const strToCaptilize = (str) => {
     if (str === 'electronics') {
       return 'Electronics'
@@ -49,8 +76,11 @@ const SingleCategoryPage = ({ products, slug }) => {
     <Layout title={`${strToCaptilize(slug)} | Amazon.com`}>
       <Container>
         <section className='grid grid-cols-1 md:grid-cols-5 gap-4 py-10'>
-          <div className='md:border-r-2 md:border-gray-300'></div>
-          <section className='md:col-span-4'>
+          <SidePanel
+            categories={categories}
+            relatedProducts={relatedProducts}
+          />
+          <section className='md:col-span-5 lg:col-span-4'>
             <h2 className='capitalize font-semibold text-2xl sm:text-3xl mb-1'>
               {slug}
             </h2>
