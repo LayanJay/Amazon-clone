@@ -8,7 +8,7 @@ import Button from '../common/Button'
 
 const Nav = () => {
   return (
-    <div className='sticky top-0 z-10 font-roboto bg-gray-900 px-4'>
+    <div className='sticky top-0 left-0 right-0 z-10 font-roboto bg-gray-900 px-4'>
       <div className='grid grid-cols-3 md:grid-cols-4 grid-rows-1 gap-4'>
         <div className='md:col-span-1 col-span-1 flex items-center justify-between space-x-3'>
           <div className='w-20 sm:w-24 pt-4 pb-1'>

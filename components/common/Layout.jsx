@@ -4,6 +4,7 @@ import Nav from './Nav'
 const Layout = ({
   children,
   title = 'Amazon.com. Spend less. Smile more.',
+  bgColor,
 }) => {
   return (
     <>
@@ -11,7 +12,7 @@ const Layout = ({
         <title>{title}</title>
       </Head>
       <Nav />
-      <main className='font-roboto bg-gray-100 min-h-screen'>{children}</main>
+      <main className={`font-roboto ${bgColor} min-h-screen`}>{children}</main>
     </>
   )
 }

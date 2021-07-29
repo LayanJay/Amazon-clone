@@ -73,7 +73,10 @@ const SingleCategoryPage = ({
   }
 
   return (
-    <Layout title={`${strToCaptilize(slug)} | Amazon.com`}>
+    <Layout
+      title={`${strToCaptilize(slug)} | Amazon.com`}
+      bgColor='bg-gray-100'
+    >
       <Container>
         <section className='grid grid-cols-1 md:grid-cols-5 gap-4 py-10'>
           <SidePanel
