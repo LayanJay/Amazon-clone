@@ -5,6 +5,7 @@ const Layout = ({
   children,
   title = 'Amazon.com. Spend less. Smile more.',
   bgColor,
+  minHeight = 'min-h-screen',
 }) => {
   return (
     <>
@@ -12,7 +13,7 @@ const Layout = ({
         <title>{title}</title>
       </Head>
       <Nav />
-      <main className={`font-roboto ${bgColor} min-h-screen`}>{children}</main>
+      <main className={`font-roboto ${bgColor} ${minHeight}`}>{children}</main>
     </>
   )
 }

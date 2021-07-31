@@ -25,10 +25,10 @@ const Nav = () => {
           </div>
           <div className='lg:flex hidden items-center justify-center space-x-2'>
             <TiLocation className='text-white text-2xl' />
-            <p className='text-white text-sm flex flex-col flex-grow'>
+            <div className='text-white text-sm flex flex-col flex-grow'>
               <div className='text-xs'>Deliver to</div>
               <div className='font-bold'>Sri Lanka</div>
-            </p>
+            </div>
           </div>
         </div>
 
