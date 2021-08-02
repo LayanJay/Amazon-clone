@@ -5,8 +5,10 @@ import { TiLocation } from 'react-icons/ti'
 import { IoIosSearch } from 'react-icons/io'
 import { HiOutlineShoppingCart } from 'react-icons/hi'
 import Button from '../common/Button'
+import { useAuthState } from '../../context/auth'
 
 const Nav = () => {
+  const user = useAuthState()
   return (
     <div className='sticky top-0 left-0 right-0 z-10 font-roboto bg-gray-900 px-4'>
       <div className='grid grid-cols-3 md:grid-cols-4 grid-rows-1 gap-4'>
@@ -42,10 +44,18 @@ const Nav = () => {
             <IoIosSearch className='text-2xl' />
           </Button>
         </div>
-        <div className='md:col-span-1 col-span-2 flex items-center justify-end space-x-2'>
+        <div className='md:col-span-1 col-span-2 flex items-center justify-end md:justify-between space-x-2'>
           <div className='text-white text-sm flex flex-col'>
-            <div className='text-xs'>Hello, Sign in</div>
-            <div className='font-bold truncate'>Layan Jayasinghe</div>
+            <div className='text-xs'>Hello,</div>
+            {user ? (
+              <div className='font-bold truncate'>{user?.displayName}</div>
+            ) : (
+              <Link href='/login'>
+                <a className='hover:text-yellow-600 transition ease-in'>
+                  <div className='font-bold truncate'>Sign In</div>
+                </a>
+              </Link>
+            )}
           </div>
           <div className='inline-flex flex-row items-center space-x-2'>
             <div className='relative'>

@@ -5,6 +5,7 @@ import {
   useEffect,
   useCallback,
 } from 'react'
+import { auth } from '../lib/firebase'
 import { initialState, reducer, SET_USER } from './reducer'
 
 const AuthStateContext = createContext()
@@ -16,7 +17,12 @@ export const AuthProvider = ({ children }) => {
   const setUser = (payload) => dispatch({ type: SET_USER, payload })
 
   const getUser = useCallback(() => {
-    // TODO: authentication logic
+    auth.onAuthStateChanged((authUser) => {
+      if (authUser) {
+        setUser({ user: authUser })
+      }
+      console.log(authUser)
+    })
   }, [])
 
   useEffect(() => {

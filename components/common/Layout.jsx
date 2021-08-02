@@ -5,7 +5,7 @@ const Layout = ({
   children,
   title = 'Amazon.com. Spend less. Smile more.',
   bgColor,
-  minHeight = 'min-h-screen',
+  minHeight = '80vh',
 }) => {
   return (
     <>
@@ -13,7 +13,12 @@ const Layout = ({
         <title>{title}</title>
       </Head>
       <Nav />
-      <main className={`font-roboto ${bgColor} ${minHeight}`}>{children}</main>
+      <main
+        style={{ minHeight: minHeight }}
+        className={`font-roboto ${bgColor}`}
+      >
+        {children}
+      </main>
     </>
   )
 }

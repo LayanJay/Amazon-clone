@@ -42,7 +42,7 @@ const SingleProductPage = ({ productData }) => {
     return value
   }
   return (
-    <Layout title={`${title} | Amazon.com`} minHeight=''>
+    <Layout title={`${title} | Amazon.com`}>
       <Container>
         <section className='grid grid-rows-1 grid-cols-1 md:grid-cols-2 gap-5 place-items-center select-none py-10 sm:py-20 lg:py-28'>
           <div className='md:col-span-1'>
