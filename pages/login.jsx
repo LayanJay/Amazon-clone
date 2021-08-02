@@ -8,12 +8,11 @@ import InputField from '../components/common/InputField'
 import Layout from '../components/common/Layout'
 import { auth } from '../lib/firebase'
 import { useAuthState } from '../context/auth'
+import Logout from '../components/common/Logout'
 
 const LoginPage = () => {
   const router = useRouter()
   const user = useAuthState()
-
-  if (user) router.push('/')
 
   const {
     register,
@@ -23,8 +22,8 @@ const LoginPage = () => {
 
   const formRef = useRef()
 
-  const onSubmit = ({ email, password }) => {
-    auth
+  const onSubmit = async ({ email, password }) => {
+    await auth
       .signInWithEmailAndPassword(email, password)
       .catch((error) => alert(`Error: ${error.message}`))
       .finally(() => {
@@ -32,6 +31,11 @@ const LoginPage = () => {
       })
     formRef.current.reset()
   }
+
+  if (user) {
+    return <Logout />
+  }
+
   return (
     <Layout>
       <Container>
