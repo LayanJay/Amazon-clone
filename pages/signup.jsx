@@ -7,7 +7,7 @@ import InputField from '../components/common/InputField'
 import Layout from '../components/common/Layout'
 import { auth } from '../lib/firebase'
 
-const LoginPage = () => {
+const SignupPage = () => {
   const router = useRouter()
 
   const {
@@ -16,12 +16,10 @@ const LoginPage = () => {
     formState: { errors },
   } = useForm()
 
-  const redirectToHome = () => router.push('/')
-
   const onSubmit = async ({ email, password }) => {
     await auth
-      .signInWithEmailAndPassword(email, password)
-      .then(() => redirectToHome())
+      .createUserWithEmailAndPassword(email, password)
+      .then(() => router.push('/'))
       .catch((error) => alert(`Error: ${error.message}`))
   }
 
@@ -34,7 +32,7 @@ const LoginPage = () => {
         >
           <div className='max-w-xl border-2 border-gray-300 rounded-md shadow p-4'>
             <h1 className='font-semibold text-3xl sm:text-4xl text-center mb-2'>
-              Login
+              Sign Up
             </h1>
             <p className='text-gray-500 text-center mb-8'>
               Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam
@@ -60,6 +58,10 @@ const LoginPage = () => {
                 register={register}
                 validation={{
                   required: 'Password is required',
+                  minLength: {
+                    value: 6,
+                    message: 'Password is too short',
+                  },
                 }}
                 errors={errors}
               />
@@ -69,7 +71,7 @@ const LoginPage = () => {
             </form>
             <div className='inline-flex space-x-2'>
               <p>Don&apos;t have an account?</p>
-              <Link href='/signup'>
+              <Link href='/singup'>
                 <a className='font-medium text-blue-600 hover:underline'>
                   Sign Up
                 </a>
@@ -82,4 +84,4 @@ const LoginPage = () => {
   )
 }
 
-export default LoginPage
+export default SignupPage
