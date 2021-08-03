@@ -1,11 +1,6 @@
-import {
-  useReducer,
-  createContext,
-  useContext,
-  useEffect,
-  useCallback,
-} from 'react'
-import { db } from '../lib/firebase'
+import { useReducer, createContext, useContext, useEffect } from 'react'
+import { useAuth } from '../hooks/auth'
+import { getUserCart } from '../lib/firebase/cart'
 import { reducer, SET_CART, SET_CHECKOUT, initialState } from './reducer'
 
 const CartContext = createContext()
@@ -14,22 +9,16 @@ const CartDispatchContext = createContext()
 export const CartProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState)
 
+  const user = useAuth()
+
   const setCart = (payload) => dispatch({ type: SET_CART, payload })
   const setCheckout = (payload) => dispatch({ type: SET_CHECKOUT, payload })
 
-  const getCart = useCallback(async () => {
-    try {
-      const cart = await db.collection('carts').get()
-      if (cart) setCart(cart)
-      console.log('cart fetched')
-    } catch (error) {
-      console.log(error)
-    }
-  }, [])
-
   useEffect(() => {
-    getCart()
-  }, [getCart])
+    if (user) {
+      getUserCart(user, setCart)
+    }
+  }, [user])
 
   return (
     <CartDispatchContext.Provider value={{ setCart, setCheckout }}>

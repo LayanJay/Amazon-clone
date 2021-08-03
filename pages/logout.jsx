@@ -3,15 +3,20 @@ import { auth } from '../lib/firebase'
 import Button from '../components/common/Button'
 import Container from '../components/common/Container'
 import Layout from '../components/common/Layout'
+import { useCartDispatch } from '../context/cart'
+import { initialState } from '../context/reducer'
 
 const Logout = () => {
   const router = useRouter()
+  const { setCart } = useCartDispatch()
 
   const handleLogout = async () => {
     await auth
       .signOut()
       .then(() => router.push('/login'))
       .catch((error) => alert(`Error: ${error.message}`))
+
+    setCart(initialState)
   }
 
   return (

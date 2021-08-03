@@ -1,12 +1,28 @@
 import { useState, useEffect, useCallback } from 'react'
 import Image from 'next/image'
+import { useRouter } from 'next/router'
 import Link from 'next/link'
 import Button from './common/Button'
+import { useAuth } from '../hooks/auth'
+import { useCartState } from '../context/cart'
+import { addToCart } from '../lib/firebase/cart'
 
 const Product = ({ product }) => {
   const { id, title, price, image } = product
+  const user = useAuth()
+  const router = useRouter()
+  const state = useCartState()
+  console.log(state)
 
   const [banner, setBanner] = useState(null)
+
+  const handleAddToCart = async (productId) => {
+    if (!user) router.push('/login')
+    else {
+      const items = { ...state, line_items: [...state.line_items, productId] }
+      await addToCart(items, user)
+    }
+  }
 
   const randomValue = () => {
     const multiplier = 100
@@ -58,7 +74,9 @@ const Product = ({ product }) => {
         <span className='ml-2'>+ ${randomValue()} shipping</span>
       </div>
       <div>
-        <Button padding='py-1 px-4'>Add to cart</Button>
+        <Button onClick={() => handleAddToCart(id)} padding='py-1 px-4'>
+          Add to cart
+        </Button>
       </div>
     </div>
   )

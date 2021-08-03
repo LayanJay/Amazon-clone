@@ -9,7 +9,6 @@ export const useAuth = () => {
       if (authUser) {
         setUser(authUser)
       }
-      console.log(authUser)
     })
   }, [])
 

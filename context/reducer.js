@@ -3,8 +3,8 @@ export const SET_CART = 'set-cart'
 export const SET_CHECKOUT = 'set-checkout'
 
 export const initialState = {
-    total_items: 0,
     line_items: [],
+    checkoutToken: null
 }
 
 export const reducer = (state, action) => {

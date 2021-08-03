@@ -7,10 +7,12 @@ import { HiOutlineShoppingCart } from 'react-icons/hi'
 import Button from '../common/Button'
 import { useRouter } from 'next/router'
 import { useAuth } from '../../hooks/auth'
+import { useCartState } from '../../context/cart'
 
 const Nav = () => {
   const router = useRouter()
   const user = useAuth()
+  const { line_items } = useCartState()
   return (
     <div className='sticky top-0 left-0 right-0 z-10 font-roboto bg-gray-900 px-4'>
       <div className='grid grid-cols-3 md:grid-cols-4 grid-rows-1 gap-4'>
@@ -64,17 +66,22 @@ const Nav = () => {
               </Link>
             )}
           </div>
-          <div className='inline-flex flex-row items-center space-x-2'>
-            <div className='relative'>
-              <HiOutlineShoppingCart className='text-4xl sm:text-5xl text-white' />
-              <p className='absolute top-0 right-0 font-semibold text-white bg-gray-600 py-0.5 px-1.5 text-xs rounded-full'>
-                0
-              </p>
-            </div>
-            <div className='text-sm font-semibold text-white '>
-              <p>Cart</p>
-            </div>
-          </div>
+
+          <Link href='/cart'>
+            <a>
+              <div className='inline-flex flex-row items-center space-x-2'>
+                <div className='relative'>
+                  <HiOutlineShoppingCart className='text-4xl sm:text-5xl text-white' />
+                  <p className='absolute top-0 right-0 font-semibold text-white bg-gray-600 py-0.5 px-1.5 text-xs rounded-full'>
+                    {line_items ? line_items.length : 0}
+                  </p>
+                </div>
+                <div className='text-sm font-semibold text-white '>
+                  <p>Cart</p>
+                </div>
+              </div>
+            </a>
+          </Link>
         </div>
       </div>
     </div>
