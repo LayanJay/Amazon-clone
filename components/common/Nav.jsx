@@ -5,10 +5,12 @@ import { TiLocation } from 'react-icons/ti'
 import { IoIosSearch } from 'react-icons/io'
 import { HiOutlineShoppingCart } from 'react-icons/hi'
 import Button from '../common/Button'
-import { useAuthState } from '../../context/auth'
+import { useRouter } from 'next/router'
+import { useAuth } from '../../hooks/auth'
 
 const Nav = () => {
-  const user = useAuthState()
+  const router = useRouter()
+  const user = useAuth()
   return (
     <div className='sticky top-0 left-0 right-0 z-10 font-roboto bg-gray-900 px-4'>
       <div className='grid grid-cols-3 md:grid-cols-4 grid-rows-1 gap-4'>
@@ -48,7 +50,12 @@ const Nav = () => {
           <div className='text-white text-sm flex flex-col'>
             <div className='text-xs'>Hello,</div>
             {user ? (
-              <div className='font-bold truncate'>{user?.displayName}</div>
+              <div
+                onClick={() => router.push('/logout')}
+                className='font-bold truncate hover:text-yellow-500 transition ease-in cursor-pointer'
+              >
+                {user?.displayName || `Logout`}
+              </div>
             ) : (
               <Link href='/login'>
                 <a className='hover:text-yellow-600 transition ease-in'>

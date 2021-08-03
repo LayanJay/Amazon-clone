@@ -4,7 +4,26 @@ import Button from '../../components/common/Button'
 import Container from '../../components/common/Container'
 import Layout from '../../components/common/Layout'
 
-export const getStaticProps = async ({ params }) => {
+// export const getStaticPaths = async () => {
+//   const url = `https://fakestoreapi.com/products`
+
+//   const response = await fetch(url)
+
+//   const products = await response.json()
+
+//   const paths = products?.map((product) => ({
+//     params: {
+//       id: `${product.id}`,
+//     },
+//   }))
+
+//   return {
+//     paths,
+//     fallback: false,
+//   }
+// }
+
+export const getServerSideProps = async ({ params }) => {
   const { id } = params
 
   const url = `https://fakestoreapi.com/products/${id}`
@@ -15,21 +34,6 @@ export const getStaticProps = async ({ params }) => {
     props: {
       productData,
     },
-  }
-}
-
-export const getStaticPaths = async () => {
-  const url = `https://fakestoreapi.com/products`
-
-  const products = await fetch(url).then((res) => res.json())
-
-  return {
-    paths: products.map((product) => ({
-      params: {
-        id: JSON.stringify(product.id),
-      },
-    })),
-    fallback: false,
   }
 }
 

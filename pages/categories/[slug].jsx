@@ -3,6 +3,21 @@ import Layout from '../../components/common/Layout'
 import Product from '../../components/Product'
 import SidePanel from '../../components/SidePanel'
 
+export const getStaticPaths = async () => {
+  const response = await fetch('https://fakestoreapi.com/products/categories')
+
+  const categories = await response.json()
+
+  return {
+    paths: categories.map((category) => ({
+      params: {
+        slug: category,
+      },
+    })),
+    fallback: false,
+  }
+}
+
 export const getStaticProps = async ({ params }) => {
   const { slug } = params
 
@@ -36,21 +51,6 @@ export const getStaticProps = async ({ params }) => {
       slug,
       relatedProducts,
     },
-  }
-}
-
-export const getStaticPaths = async () => {
-  const categories = await fetch(
-    'https://fakestoreapi.com/products/categories'
-  ).then((res) => res.json())
-
-  return {
-    paths: categories.map((category) => ({
-      params: {
-        slug: category,
-      },
-    })),
-    fallback: false,
   }
 }
 
