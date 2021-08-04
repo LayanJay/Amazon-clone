@@ -1,27 +1,13 @@
 import Image from 'next/image'
 import Link from 'next/link'
+import { useRouter } from 'next/router'
+import { useCallback, useEffect, useState } from 'react'
 import Button from '../../components/common/Button'
 import Container from '../../components/common/Container'
 import Layout from '../../components/common/Layout'
-
-// export const getStaticPaths = async () => {
-//   const url = `https://fakestoreapi.com/products`
-
-//   const response = await fetch(url)
-
-//   const products = await response.json()
-
-//   const paths = products?.map((product) => ({
-//     params: {
-//       id: `${product.id}`,
-//     },
-//   }))
-
-//   return {
-//     paths,
-//     fallback: false,
-//   }
-// }
+import { useCartState } from '../../context/cart'
+import { useAuth } from '../../hooks/auth'
+import { addToCart } from '../../lib/firebase/cart'
 
 export const getServerSideProps = async ({ params }) => {
   const { id } = params
@@ -38,12 +24,29 @@ export const getServerSideProps = async ({ params }) => {
 }
 
 const SingleProductPage = ({ productData }) => {
-  const { price, title, description, category, image } = productData
+  const { id, price, title, description, category, image } = productData
+  const [randomVal, setRandomVal] = useState(50)
+  const user = useAuth()
+  const router = useRouter()
+  const state = useCartState()
 
-  const randomValue = () => {
+  const randomValue = useCallback(() => {
     const multiplier = 100
     const value = Math.floor(Math.random() * multiplier)
     return value
+  }, [])
+
+  useEffect(() => {
+    const value = randomValue()
+    setRandomVal(value)
+  }, [randomValue])
+
+  const handleAddToCart = async (productId) => {
+    if (!user) router.push('/login')
+    else {
+      const items = { ...state, line_items: [...state.line_items, productId] }
+      await addToCart(items, user)
+    }
   }
   return (
     <Layout title={`${title} | Amazon.com`}>
@@ -81,7 +84,7 @@ const SingleProductPage = ({ productData }) => {
                   $
                 </span>
                 <span className='text-lg sm:text-xl'>{price}</span>
-                <span className='ml-2'>+ ${randomValue()} shipping</span>
+                <span className='ml-2'>+ ${randomVal} shipping</span>
               </div>
             </div>
 
@@ -96,7 +99,9 @@ const SingleProductPage = ({ productData }) => {
 
             <div>
               <p className='text-green-800 font-medium mb-3'>In Stock</p>
-              <Button padding='py-1 px-4'>Add to cart</Button>
+              <Button onClick={() => handleAddToCart(id)} padding='py-1 px-4'>
+                Add to cart
+              </Button>
             </div>
           </div>
         </section>

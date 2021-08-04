@@ -12,9 +12,9 @@ const Product = ({ product }) => {
   const user = useAuth()
   const router = useRouter()
   const state = useCartState()
-  console.log(state)
 
   const [banner, setBanner] = useState(null)
+  const [randomVal, setRandomVal] = useState(50)
 
   const handleAddToCart = async (productId) => {
     if (!user) router.push('/login')
@@ -24,21 +24,23 @@ const Product = ({ product }) => {
     }
   }
 
-  const randomValue = () => {
+  const randomValue = useCallback(() => {
     const multiplier = 100
     const value = Math.floor(Math.random() * multiplier)
     return value
-  }
+  }, [])
 
   const showBestSellerBanner = useCallback(() => {
     const value = randomValue()
     if (value > 50) return true
-  }, [])
+  }, [randomValue])
 
   useEffect(() => {
     const show = showBestSellerBanner()
+    const value = randomValue()
+    setRandomVal(value)
     setBanner(show)
-  }, [showBestSellerBanner])
+  }, [randomValue, showBestSellerBanner])
 
   return (
     <div className='max-w-sm bg-white px-5 py-4 w-full'>
@@ -71,7 +73,7 @@ const Product = ({ product }) => {
       <div className='relative mb-3'>
         <span className='absolute top-1 -left-2 text-xs font-semibold'>$</span>
         <span className='text-xl sm:text-2xl'>{price}</span>
-        <span className='ml-2'>+ ${randomValue()} shipping</span>
+        <span className='ml-2'>+ ${randomVal} shipping</span>
       </div>
       <div>
         <Button onClick={() => handleAddToCart(id)} padding='py-1 px-4'>
