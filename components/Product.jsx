@@ -16,10 +16,13 @@ const Product = ({ product }) => {
   const [banner, setBanner] = useState(null)
   const [randomVal, setRandomVal] = useState(50)
 
-  const handleAddToCart = async (productId) => {
+  const handleAddToCart = async (product) => {
     if (!user) router.push('/login')
     else {
-      const items = { ...state, line_items: [...state.line_items, productId] }
+      const items = {
+        ...state,
+        line_items: [...state.line_items, { ...product }],
+      }
       await addToCart(items, user)
     }
   }
@@ -76,7 +79,7 @@ const Product = ({ product }) => {
         <span className='ml-2'>+ ${randomVal} shipping</span>
       </div>
       <div>
-        <Button onClick={() => handleAddToCart(id)} padding='py-1 px-4'>
+        <Button onClick={() => handleAddToCart(product)} padding='py-1 px-4'>
           Add to cart
         </Button>
       </div>

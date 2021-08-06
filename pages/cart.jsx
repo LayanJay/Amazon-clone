@@ -62,12 +62,11 @@ const EmptyCartMessage = () => {
 const CartPage = ({ categories, relatedProducts }) => {
   const user = useAuth()
   const { line_items } = useCartState()
-  console.log(line_items)
   return (
     <Layout>
       <Container>
         <section className='mb-6'>
-          <div>
+          <div className='mb-4'>
             <Image
               src='/amazon-cart-main.png'
               alt='amazon cart page advertisement'
@@ -76,7 +75,6 @@ const CartPage = ({ categories, relatedProducts }) => {
               height={200}
             />
           </div>
-          <h1>Cart</h1>
           <section className='grid grid-rows-1 grid-cols-1 lg:grid-cols-4 gap-4'>
             <div className='lg:col-span-3'>
               {user ? (
@@ -90,7 +88,7 @@ const CartPage = ({ categories, relatedProducts }) => {
               <h3 className='font-semibold sm:text-lg mb-4'>Departments</h3>
               <div className='flex flex-col mb-4'>
                 {categories?.map((category, i) => (
-                  <Link key={i} href={category}>
+                  <Link key={i} href={`/categories/${category}`}>
                     <a className='hover:text-yellow-600 transition ease-in capitalize'>
                       {category}
                     </a>
