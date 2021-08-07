@@ -63,7 +63,7 @@ const LineItem = ({ item }) => {
         <div className='flex items-center'>
           <button
             onClick={() => removeItem(id)}
-            className='py-2 px-4 bg-gray-200 hover:bg-gray-300 border-2 focus:border-gray-700 rounded-md transition ease-in'
+            className='py-1 sm:py-2 px-4 bg-gray-200 hover:bg-gray-300 border-2 focus:border-gray-700 rounded-md transition ease-in'
           >
             <MdDelete className='sm:text-xl text-gray-700' />
           </button>
