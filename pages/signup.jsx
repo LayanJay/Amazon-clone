@@ -73,7 +73,7 @@ const SignupPage = () => {
               <p>Already have an account?</p>
               <Link href='/login'>
                 <a className='font-medium text-blue-600 hover:underline'>
-                  Sign Up
+                  Login
                 </a>
               </Link>
             </div>
