@@ -70,8 +70,8 @@ const SignupPage = () => {
               </Button>
             </form>
             <div className='inline-flex space-x-2'>
-              <p>Don&apos;t have an account?</p>
-              <Link href='/singup'>
+              <p>Already have an account?</p>
+              <Link href='/login'>
                 <a className='font-medium text-blue-600 hover:underline'>
                   Sign Up
                 </a>
