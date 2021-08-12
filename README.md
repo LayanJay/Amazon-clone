@@ -11,8 +11,10 @@ Here is an Amazon clone built with cutting-edge technologies. This is a [Next.js
 ## Tech Stack
 
 - Reactjs (Nextjs)
-- TailwindCss
+- TailwindCSS
 - Fake Store API
+- Firebase Auth
+- Firebase Firestore
 
 ## Contribution Guide
 
